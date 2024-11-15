@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Provider/AuthContextFun'
 
 
 export default function Login() {
     const {user, userLogin} = useContext(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+    console.log(location)
 
 
     const handleLogin = (event) => {
@@ -17,6 +20,7 @@ export default function Login() {
         userLogin(email, password)
         .then((result) => {
             console.log("Login successful", result)
+            navigate(location?.state ? location.state : "/")
         })
         .catch((error) => {
             console.log("Login failed", error.message)
